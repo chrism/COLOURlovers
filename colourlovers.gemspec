@@ -4,8 +4,8 @@ require File.expand_path('../lib/colourlovers/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Chris Masters"]
   gem.email         = ["chrismasters@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{An easy way to access the COLOURlovers API using httparty.}
+  gem.summary       = %q{A ruby wrapper for the COLOURlovers API}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)

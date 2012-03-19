@@ -22,7 +22,40 @@ module Colourlovers
       self.class.send(method, *args, &block)
     end
     
-    class << self    
+    class << self
+      
+      
+      # Handle responses from HTTParty calls to the COLOURlovers API with
+      # some generic response interpretation and manipulation. 
+      # @todo Add individual errors for various HTTP Status codes
+      def handle_response(response)
+        status = response.code
+        
+        case status
+          when 404 then STDERR.puts "404 - maybe COLOURlovers down? #{$!}"
+          when 400..499 then STDERR.puts "400-499 - maybe COLOURlovers down? #{$!}"
+          when 500..599 then STDERR.puts "500-599 - maybe COLOURlovers down? #{$!}"
+          else response.first
+        end
+
+      end
+      private :handle_response
+      
+      # Handle all HTTParty responses with some error handling so that our
+      # individual methods don't have to worry about it at all (although they)
+      # can (and should where relevant) rescue from errors when they are able to.
+      [:get, :head, :post, :put, :delete].each do |http_verb|
+        define_method http_verb do |*args|
+          begin
+            handle_response super(*args)
+          rescue Exception
+            STDERR.puts "socketerror - maybe no connection? #{$!}"
+            exit
+          end
+        end
+      end
+      
+       
       
       ## COLORS ##
          
@@ -145,9 +178,9 @@ module Colourlovers
       def lover(username)
         Lover.find(username)
       end 
-            
+           
     end
-  
+    
   end
   
 end
