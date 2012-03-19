@@ -1,6 +1,10 @@
 # Colourlovers
 
-TODO: Write a gem description
+A simple gem to use to make it easy to use the COLOURlovers API.
+
+http://www.colourlovers.com/api
+
+This is my first gem and there are currently no tests, bt I am working on it.
 
 ## Installation
 
